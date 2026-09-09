@@ -1,0 +1,111 @@
+{
+  "manifest_version": 3,
+  "name": "DIVxPAPA 💀 UNIVERSAL MIC PRO MAX",
+  "short_name": "DIVxPAPA 💀 MIC",
+  "version": "10.0.0",
+  "description": "DIVxPAPA 💀 universal browser microphone enhancer for WebRTC calls. Privacy-first. No remote requests. No bullshit. Built by He.",
+  "permissions": [
+    "storage",
+    "tabs",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://*/*",
+    "http://localhost:*/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*/*",
+        "http://localhost:*/*"
+      ],
+      "js": [
+        "content/loader.js",
+        "content/service.js",
+        "content/injector.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_about_blank": true,
+      "world": "MAIN"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "core/processor.js",
+        "core/worklet.js",
+        "assets/icon16.png",
+        "assets/icon48.png",
+        "assets/icon128.png"
+      ],
+      "matches": [
+        "https://*/*",
+        "http://localhost:*/*"
+      ],
+      "use_dynamic_url": true
+    }
+  ],
+  "action": {
+    "default_title": "DIVxPAPA 💀 UNIVERSAL MIC PRO MAX",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "assets/icon16.png",
+      "48": "assets/icon48.png",
+      "128": "assets/icon128.png"
+    }
+  },
+  "commands": {
+    "toggle-mic": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+M",
+        "mac": "Command+Shift+M"
+      },
+      "description": "Toggle DIVxPAPA 💀 mic processing"
+    },
+    "clear-boost": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+1",
+        "mac": "Command+Shift+1"
+      },
+      "description": "Apply Clear boost"
+    },
+    "max-power": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+2",
+        "mac": "Command+Shift+2"
+      },
+      "description": "Apply Max power"
+    },
+    "studio-mode": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+3",
+        "mac": "Command+Shift+3"
+      },
+      "description": "Apply Studio preset"
+    },
+    "reset-all": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+9",
+        "mac": "Command+Shift+9"
+      },
+      "description": "Reset all settings to default"
+    }
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": false
+  },
+  "icons": {
+    "16": "assets/icon16.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  },
+  "minimum_chrome_version": "120",
+  "offline_enabled": true,
+  "incognito": "spanning"
+}
