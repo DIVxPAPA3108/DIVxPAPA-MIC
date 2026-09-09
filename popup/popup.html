@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DIVxPAPA 💀 UNIVERSAL MIC PRO MAX</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <main class="panel">
+    <section class="hero" aria-label="Extension header">
+      <div>
+        <p class="eyebrow">DIVxPAPA 💀 AUDIO LAB</p>
+        <h1>DIVxPAPA 💀<br />UNIVERSAL MIC PRO MAX</h1>
+        <p class="tagline">Telegram • WhatsApp • Instagram • WebRTC</p>
+        <div class="voiceViz" aria-label="Animated voice visualizer">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <label class="switch" title="Enable or disable mic processing">
+        <input id="enabled" type="checkbox" aria-label="Enabled" />
+        <span class="slider"></span>
+      </label>
+    </section>
+
+    <div id="hookStatus" class="status" role="status" aria-live="polite">Hook status: checking active browser tab...</div>
+
+    <section class="presets" aria-label="Performance modes">
+      <div class="sectionTitle">
+        <h2>⚡ Performance modes</h2>
+        <span>tap to apply</span>
+      </div>
+      <div class="presetGrid">
+        <button id="clearPreset" class="preset clear" type="button" aria-pressed="false">
+          <strong>🌀 Clear</strong>
+          <small>clean, natural calls</small>
+        </button>
+        <button id="maxPreset" class="preset max" type="button" aria-pressed="false">
+          <strong>💀 Max</strong>
+          <small>extreme gain + raw lock</small>
+        </button>
+        <button id="studioPreset" class="preset studio" type="button" aria-pressed="false">
+          <strong>🎛️ Studio</strong>
+          <small>reverb + EQ polish</small>
+        </button>
+        <button id="safePreset" class="preset safe" type="button" aria-pressed="false">
+          <strong>🛡️ Safe</strong>
+          <small>conservative, stable</small>
+        </button>
+      </div>
+      <p class="hint">If your call clips or crackles, switch to Clear or Safe mode.</p>
+    </section>
+
+    <section class="commandCenter" aria-label="Quick commands">
+      <div class="sectionTitle">
+        <h2>⌨️ Command center</h2>
+        <span>/commands</span>
+      </div>
+      <form id="commandForm" class="commandForm">
+        <input id="commandInput" type="text" autocomplete="off" spellcheck="false" placeholder="Try /clear, /studio, /safe..." aria-label="Enter a command" />
+        <button type="submit">Run</button>
+      </form>
+      <div class="commandChips" aria-label="Quick command buttons">
+        <button type="button" data-command="clear">Clear</button>
+        <button type="button" data-command="max">Max</button>
+        <button type="button" data-command="studio">Studio</button>
+        <button type="button" data-command="safe">Safe</button>
+        <button type="button" data-command="mute">Mute</button>
+        <button type="button" data-command="reset">Reset</button>
+        <button type="button" data-command="status">Status</button>
+      </div>
+      <p class="commandHint">Keyboard: ⌘/Ctrl + Shift + M toggle • 1 Clear • 2 Max • 3 Studio</p>
+    </section>
+
+    <section class="profileCard" aria-label="Profile photo">
+      <div>
+        <h2>🖼️ Background</h2>
+        <p>Choose your photo for a personal popup background. Stays local.</p>
+      </div>
+      <div class="photoActions">
+        <label class="photoButton" for="photoInput">Add photo</label>
+        <input id="photoInput" type="file" accept="image/*" />
+        <button id="removePhoto" class="removePhoto" type="button" hidden>Remove</button>
+      </div>
+    </section>
+
+    <section class="callTools" aria-label="Call audience controls">
+      <div class="sectionTitle">
+        <h2>📞 Call control</h2>
+        <span>local output</span>
+      </div>
+      <div class="field"><label for="remoteVolume">Everyone's volume <em>0 = mute • 1 = full</em></label><input id="remoteVolume" type="range" min="0" max="1" step="0.05" value="1" /><output id="remoteVolumeVal"></output></div>
+      <label class="checkField" for="remoteVolumeGuard"><input id="remoteVolumeGuard" type="checkbox" /> 🔒 Keep all incoming voices at this level</label>
+      <label class="checkField" for="voiceLock"><input id="voiceLock" type="checkbox" /> 🔐 Voice level lock — restore my mic if muted</label>
+      <p class="toolHint">Incoming volume works when the site plays callers through HTML audio/video. Voice lock protects your local browser mic.</p>
+    </section>
+
+    <section class="controls" aria-label="Mic boost controls">
+      <div class="field"><label for="gainDb">🎚️ Gain <em>dB / multiplier</em></label><input id="gainDb" type="range" min="0" max="36" step="0.5" value="18" /><output id="gainDbVal"></output></div>
+      <div class="field"><label for="loudness">📊 Loudness Trim</label><input id="loudness" type="range" min="0.5" max="4" step="0.05" value="1" /><output id="loudnessVal"></output></div>
+      <div class="field"><label for="maxBoost">⬆️ Boost ceiling</label><input id="maxBoost" type="range" min="1" max="8" step="0.1" value="4" /><output id="maxBoostVal"></output></div>
+      <div class="field"><label for="drive">🔥 Saturation Drive</label><input id="drive" type="range" min="0" max="1" step="0.01" value="0.22" /><output id="driveVal"></output></div>
+      <div class="field"><label for="thresholdDb">📉 Compressor Threshold <em>dB</em></label><input id="thresholdDb" type="range" min="-60" max="0" value="-28" /><output id="thresholdDbVal"></output></div>
+      <div class="field"><label for="ratio">📐 Compressor Ratio</label><input id="ratio" type="range" min="1" max="20" step="0.5" value="8" /><output id="ratioVal"></output></div>
+      <div class="field"><label for="limiterDb">🔒 Limiter Ceiling <em>dB</em></label><input id="limiterDb" type="range" min="-24" max="0" step="0.1" value="-1" /><output id="limiterDbVal"></output></div>
+      <div class="field"><label for="presenceDb">🎤 Presence EQ <em>dB</em></label><input id="presenceDb" type="range" min="-12" max="12" value="3" /><output id="presenceDbVal"></output></div>
+      <div class="field"><label for="lowShelfDb">🔊 Bass EQ <em>dB</em></label><input id="lowShelfDb" type="range" min="-12" max="12" value="2" /><output id="lowShelfDbVal"></output></div>
+      <div class="field"><label for="highShelfDb">🔊 Treble EQ <em>dB</em></label><input id="highShelfDb" type="range" min="-12" max="12" value="3" /><output id="highShelfDbVal"></output></div>
+      <div class="field"><label for="eqLow">🎛️ EQ Low <em>dB</em></label><input id="eqLow" type="range" min="-12" max="12" value="0" /><output id="eqLowVal"></output></div>
+      <div class="field"><label for="eqMid">🎛️ EQ Mid <em>dB</em></label><input id="eqMid" type="range" min="-12" max="12" value="0" /><output id="eqMidVal"></output></div>
+      <div class="field"><label for="eqHigh">🎛️ EQ High <em>dB</em></label><input id="eqHigh" type="range" min="-12" max="12" value="0" /><output id="eqHighVal"></output></div>
+      <label class="checkField" for="eqEnabled"><input id="eqEnabled" type="checkbox" /> 🎛️ Enable 3-band EQ</label>
+      <label class="checkField" for="noiseGateEnabled"><input id="noiseGateEnabled" type="checkbox" /> 🔇 Noise gate</label>
+      <label class="checkField" for="sustain"><input id="sustain" type="checkbox" /> 🔄 Anti-duck sustain lock</label>
+      <label class="checkField" for="forceRawMic"><input id="forceRawMic" type="checkbox" /> ⚡ Raw mic constraint lock</label>
+      <label class="checkField" for="reverbEnabled"><input id="reverbEnabled" type="checkbox" /> 🌊 Reverb layer</label>
+      <label class="checkField" for="keepAlive"><input id="keepAlive" type="checkbox" /> 💓 Mic keep-alive</label>
+      <div class="field"><label for="sustainTargetDb">🎯 Sustain Target <em>dB</em></label><input id="sustainTargetDb" type="range" min="-24" max="0" step="1" value="-12" /><output id="sustainTargetDbVal"></output></div>
+      <div class="field"><label for="sustainMaxGain">📈 Sustain Max Gain</label><input id="sustainMaxGain" type="range" min="1" max="12" step="0.5" value="6" /><output id="sustainMaxGainVal"></output></div>
+      <div class="field"><label for="reverbWet">💧 Reverb Wet Mix</label><input id="reverbWet" type="range" min="0" max="0.6" step="0.01" value="0.04" /><output id="reverbWetVal"></output></div>
+      <div class="field"><label for="keepAliveGain">📊 Keep-Alive Floor</label><input id="keepAliveGain" type="range" min="0" max="0.0005" step="0.00001" value="0.00005" /><output id="keepAliveGainVal"></output></div>
+    </section>
+
+    <div class="actions" aria-label="Extension actions">
+      <button id="openTelegram" class="secondaryAction" type="button">📱 Open Telegram Web</button>
+      <button id="resetSettings" class="textAction" type="button">⟲ Reset settings</button>
+    </div>
+
+    <footer>💀 DIVxPAPA v10.0 — Works on HTTPS browser calls that use WebRTC. Reload the call tab after installing. He built this.</footer>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>
